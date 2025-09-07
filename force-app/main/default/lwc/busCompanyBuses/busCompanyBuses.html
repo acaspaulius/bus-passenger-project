@@ -1,0 +1,54 @@
+<template>
+    <lightning-card title="Buses & Passengers">
+        <div class="slds-p-around_medium">
+
+            <template if:true={loading}>
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={busesData}>
+                <template for:each={busesData} for:item="bus">
+                    <article key={bus.Id} class="slds-box slds-m-bottom_medium">
+                        <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                            <h3 class="slds-text-heading_small">Bus - <strong>{bus.Name}</strong></h3>
+                            <div class="slds-text-body_small slds-align-middle">{bus.Bus_Status__c}</div>
+                        </div>
+
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1">
+                                <p class="slds-text-title_bold slds-m-bottom_x-small">
+                                    Passengers ({bus.Passenger_Count__c})
+                                </p>
+                                <ul class="slds-list_dotted slds-p-left_medium">
+                                    <template if:true={bus.Passengers__r}>
+                                        <template for:each={bus.Passengers__r} for:item="passenger">
+                                            <li key={passenger.Id} class="slds-item slds-m-bottom_xx-small">{passenger.Name}</li>
+                                        </template>
+                                    </template>
+                                    <template if:false={bus.Passengers__r}>
+                                        <li>No passengers</li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </template>
+            </template>
+
+            <template if:true={busesError}>
+                <div class="slds-text-color_error">Error loading buses: {busesError.body.message}</div>
+            </template>
+
+            <template if:true={showNoBuses}>
+                <div class="slds-text-body_small">No buses found.</div>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
