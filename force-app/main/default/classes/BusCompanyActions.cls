@@ -3,7 +3,6 @@ public with sharing class BusCompanyActions
     @AuraEnabled(cacheable=true)
     public static List<Bus__c> getBusesWithPassengers(Id busCompanyId) 
     {
-        System.debug('Bus Company ID: ' + busCompanyId);
         if (busCompanyId == null) 
         {
             return new List<Bus__c>();
@@ -17,8 +16,6 @@ public with sharing class BusCompanyActions
             WHERE Bus_Company__c = :busCompanyId
             ORDER BY Name
         ];
-
-        System.debug('Retrieved Buses: ' + busesList);
 
         return busesList;
     }
