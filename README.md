@@ -27,7 +27,7 @@ The project includes:
 - **Fields:**
   - `Name`
 - **Relationships:**
-  - Lookup → `Bus__c`
+  - Master-Detail → `Bus__c`
 
 **Bus_Company__c**
 - **Fields:**
